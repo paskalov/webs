@@ -1,0 +1,13 @@
+{% for film in filmy %}
+    <div class="leftbox">
+        <a href="{{ path('movie', {'slug_id' : film.getId, 'slug_name' : film.getNazwa | replace(' ', '-')})}}"><h3>{{ film.getNazwa }}</h3></a>
+        <a href="{{ path('movie', {'slug_id' : film.getId, 'slug_name' : film.getNazwa | replace(' ', '-')})}}">
+            <img src="{{ asset(film.getImgUrl) }}" width="80" height="110" alt="photo 1" class="left" />
+        </a>
+        <p><b>Rok:</b> {{ film.getRokPremiery }}</p>
+        <p><b>Dlugość:</b> {{ film.getDlugosc }}</p>
+        <p><b>Cena:</b> <b>{{ film.getCena }}</b> zł.</p>
+        <p class="readmore"><a href="{{ path('movie', {'slug_id' : film.getId, 'slug_name' : film.getNazwa | replace(' ', '-')})}}">Zobać więcej</a></p>
+        <div class="clear"></div>
+    </div>
+{% endfor %}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Filmweb\WebsiteBundle\Entity\Recenzje" table="Recenzje">
+    <indexes>
+      <index name="fk_Recenzje_Uzytkownicy2_idx" columns="id_uzytkownik"/>
+      <index name="fk_Recenzje_Filmy2" columns="id_film"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="czasZlozenia" type="datetime" column="czas_zlozenia" nullable="true"/>
+    <field name="tresc" type="string" column="tresc" length="45" nullable="true"/>
+    <many-to-one field="idUzytkownik" target-entity="Filmweb\UserBundle\Entity\User">
+      <join-columns>
+        <join-column name="id_uzytkownik" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idFilm" target-entity="Filmy">
+      <join-columns>
+        <join-column name="id_film" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

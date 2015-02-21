@@ -1,0 +1,59 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Recenzje
+ *
+ * @ORM\Table(name="Recenzje", indexes={@ORM\Index(name="fk_Recenzje_Uzytkownicy2_idx", columns={"id_uzytkownik"}), @ORM\Index(name="fk_Recenzje_Filmy2", columns={"id_film"})})
+ * @ORM\Entity
+ */
+class Recenzje
+{
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="czas_zlozenia", type="datetime", nullable=true)
+     */
+    private $czasZlozenia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tresc", type="string", length=45, nullable=true)
+     */
+    private $tresc;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Filmweb\WebsiteBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Filmweb\WebsiteBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_uzytkownik", referencedColumnName="id")
+     * })
+     */
+    private $idUzytkownik;
+
+    /**
+     * @var \Filmweb\WebsiteBundle\Entity\Filmy
+     *
+     * @ORM\ManyToOne(targetEntity="Filmweb\WebsiteBundle\Entity\Filmy")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_film", referencedColumnName="id")
+     * })
+     */
+    private $idFilm;
+
+
+}

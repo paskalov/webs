@@ -1,0 +1,53 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Uzytkownicy
+ *
+ * @ORM\Table(name="Uzytkownicy")
+ * @ORM\Entity
+ */
+class Uzytkownicy
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imie", type="string", length=45, nullable=true)
+     */
+    private $imie;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nazwisko", type="string", length=45, nullable=true)
+     */
+    private $nazwisko;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefon_komurkowy", type="string", length=45, nullable=true)
+     */
+    private $telefonKomurkowy;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Filmweb\WebsiteBundle\Entity\Zamowienia" table="Zamowienia">
+    <indexes>
+      <index name="fk_Zamowienia_StatusZamowienia1_idx" columns="id_status"/>
+      <index name="fk_Zamowienia_Filmy1_idx" columns="id_film"/>
+      <index name="fk_Zamowienia_Uzytkownicy1_idx" columns="id_uzytkownik"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="dataZamowienia" type="datetime" column="data_zamowienia" nullable="true"/>
+    <field name="dataZwrotu" type="datetime" column="data_zwrotu" nullable="true"/>
+    <many-to-one field="idUzytkownik" target-entity="Filmweb\UserBundle\Entity\User">
+      <join-columns>
+        <join-column name="id_uzytkownik" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idFilm" target-entity="Filmy">
+      <join-columns>
+        <join-column name="id_film" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idStatus" target-entity="Statuszamowienia">
+      <join-columns>
+        <join-column name="id_status" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

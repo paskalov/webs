@@ -1,0 +1,34 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Aktorzyfilmy
+ *
+ * @ORM\Table(name="AktorzyFilmy", indexes={@ORM\Index(name="fk_leadingRole_movies_idx", columns={"id_film"}), @ORM\Index(name="fk_leadingRole_actors1_idx", columns={"id_aktora"})})
+ * @ORM\Entity
+ */
+class Aktorzyfilmy
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_film", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idFilm;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_aktora", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idAktora;
+
+
+}

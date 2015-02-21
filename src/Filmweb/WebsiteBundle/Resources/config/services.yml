@@ -1,0 +1,5 @@
+services:
+    acme_user.registration.form.type:
+        class: Filmweb\UserBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: filmweb_user_registration }

@@ -1,0 +1,53 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Fosuser
+ *
+ * @ORM\Table(name="FOSUser")
+ * @ORM\Entity
+ */
+class Fosuser
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=45, nullable=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=45, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=45, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmationToken", type="string", length=45, nullable=true)
+     */
+    private $confirmationtoken;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}

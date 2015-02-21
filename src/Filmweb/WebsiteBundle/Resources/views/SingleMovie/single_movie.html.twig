@@ -1,0 +1,119 @@
+{% extends 'FilmwebWebsiteBundle::base.html.twig' %}
+
+{% block title %}{{ film.getNazwa }}{% endblock %}
+{% block filmPreview %}
+    <h3 style="font-size: 180%">{{ film.getNazwa }}</h3>
+    <img src="{{ asset(film.getImgUrl) }}" width="104" height="143" alt="photo 1" class="left" />
+    <p><b>Rok:</b> {{ film.getRokPremiery }}</p>
+    <p><b>Gatunki: </b>
+        {% for gatunek in film.getNazwaGatunku %}
+            <a href="{{ path('moviesByGenre', {'genre' :  gatunek.getNazwaGatunku} ) }}">{{ gatunek.getNazwaGatunku }}</a>
+            {% if loop.last == false %},{% endif %}
+        {% endfor %}
+    </p>
+    <p><b>Dlugość:</b> {{ film.getDlugosc }}</p>
+    <p><b>Obsada aktorska:</b>
+         {% for aktor in film.getNazwaAktora %}
+            {{ aktor.getNazwaAktora }}{% if loop.last == false %},{% endif %}
+         {% endfor %}
+    </p>
+    <p><b>Opis: </b>{{ film.getOpis }}</p>
+    <br />
+    <br />
+    <p align="right" style="font-size: 125%"><b>Cena:</b> <b>{{ film.getCena }}</b> zł.</p>
+
+    {% if doesUserHavePermissionToWatch %}
+        <script src="{{ asset('bundles/filmweb/html5lightbox/html5lightbox.js') }}"></script>
+        <div id="online-movie">
+        <a href="{{ asset(film.getVideoUrl) }}"
+                class="html5lightbox" data-width="1024" data-height="768" title="{{ film.getNazwa }}">
+            <img  src="{{ asset('bundles/filmweb/images/movie-icon.png') }}" height="30px" width="30px"/>
+            Oglądaj film online!</a>
+        </div>
+    {% else %}
+        <form action="{{ path('orderInfo') }}" method="post">
+            <input type="hidden"  name="movieId" value="{{ film.getId }}" />
+            <input class="button" type="submit" value="Wypożyczyć" />
+        </form>
+    {% endif %}
+    <br /><br /><br />
+
+    {% if app.user %}
+        <div id="review" name="lol">
+        <b>Dodaj recenzję:</b>
+        <br />
+        <br />
+        <style>
+            #reviewTextArea {
+                text-align: center;
+            }
+            #review b {
+               font-size: 125%;
+            }
+            textarea {
+                width: 420px;
+                height:130px;
+                border:1px solid #3366FF;
+                border-left: 4px solid #3366FF;
+            }
+            .button {
+                border-top: 1px solid #96d1f8;
+                background: #65a9d7;
+                background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+                background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+                background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+                background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+                background: -o-linear-gradient(top, #3e779d, #65a9d7);
+                padding: 0px 14px;
+                -webkit-border-radius: 0px;
+                -moz-border-radius: 0px;
+                border-radius: 0px;
+                -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+                -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+                box-shadow: rgba(0,0,0,1) 0 1px 0;
+                text-shadow: rgba(0,0,0,.4) 0 1px 0;
+                color: white;
+                font-size: 14px;
+                font-family: Georgia, serif;
+                text-decoration: none;
+                vertical-align: middle;
+            }
+            .button:hover {
+                border-top-color: #28597a;
+                background: #28597a;
+                color: #ccc;
+            }
+            .button:active {
+                border-top-color: #1b435e;
+                background: #1b435e;
+            }
+            .hide {
+                margin: 0;
+                padding: 0;
+                border: none;
+                width: 90%;
+                height: 50px;
+            }
+            #online-movie {
+                margin-left: 35%;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function(){
+               $('.button').click(function() {
+                  $('#review').hide();
+               });
+            });
+        </script>
+        <div id="reviewTextArea">
+            <form action="{{ path('addReview') }}" method="post" target="hiddenFrame">
+                <textarea wrap="physical" name="review"></textarea>
+                <input type="hidden" name="movieId" value="{{ film.getId }}">
+                <br/><br />
+                <input class="button" type="submit" value="Dodaj">
+            </form>
+        </div>
+    </div>
+        <iframe align="center" name="hiddenFrame" class="hide"></iframe>
+    {% endif %}
+{% endblock %}

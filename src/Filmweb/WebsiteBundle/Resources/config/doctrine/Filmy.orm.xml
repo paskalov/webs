@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Filmweb\WebsiteBundle\Entity\Filmy" table="Filmy">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nazwa" type="string" column="nazwa" length="100" nullable="true"/>
+    <field name="rokPremiery" type="decimal" column="rok_premiery" precision="4" scale="0" nullable="true"/>
+    <field name="dlugosc" type="string" column="dlugosc" length="45" nullable="true"/>
+    <field name="opis" type="text" column="opis" nullable="true"/>
+    <field name="cena" type="decimal" column="cena" precision="15" scale="2" nullable="true"/>
+    <field name="imgUrl" type="text" column="img_url" length="65535" nullable="true"/>
+    <field name="videoUrl" type="text" column="video_url" length="65535" nullable="true"/>
+    <many-to-many field="nazwaGatunku" target-entity="Gatunki" inversed-by="idFilm">
+      <join-table name="FilmyGatunki">
+        <join-columns>
+          <join-column name="id_film" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="nazwa_gatunku" referenced-column-name="nazwa_gatunku"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="nazwaAktora" target-entity="Aktorzy" inversed-by="idFilm">
+      <join-table name="AktorzyFilmy">
+        <join-columns>
+          <join-column name="id_film" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="nazwa_aktora" referenced-column-name="nazwa_aktora"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

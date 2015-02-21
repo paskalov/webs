@@ -1,0 +1,39 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Gatunki
+ *
+ * @ORM\Table(name="Gatunki")
+ * @ORM\Entity
+ */
+class Gatunki
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nazwa_gatunku", type="string", length=50)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $nazwaGatunku;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Filmweb\WebsiteBundle\Entity\Filmy", mappedBy="nazwaGatunku")
+     */
+    private $idFilm;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idFilm = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}

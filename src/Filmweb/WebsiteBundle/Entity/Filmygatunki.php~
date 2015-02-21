@@ -1,0 +1,34 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Filmygatunki
+ *
+ * @ORM\Table(name="FilmyGatunki", indexes={@ORM\Index(name="fk_Filmy_has_Gatunki_Gatunki1_idx", columns={"nazwa_gatunku"}), @ORM\Index(name="fk_Filmy_has_Gatunki_Filmy1_idx", columns={"id_film"})})
+ * @ORM\Entity
+ */
+class Filmygatunki
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_film", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idFilm;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nazwa_gatunku", type="string", length=50)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $nazwaGatunku;
+
+
+}

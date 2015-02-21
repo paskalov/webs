@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{% block title %}Wypożyczalnia filmów {% endblock %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="{{ asset('bundles/filmweb/css/style.css')}}" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="{{ asset('bundles/filmweb/images/favicon/favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ asset('bundles/filmweb/images/favicon/favicon.ico') }}" type="image/x-icon">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    function loadAjax(genre) {
+      var path = '/filmweb/web/app_dev.php/genre-ajax/';
+
+      $(document).ready(function() {
+        $("#body .inner").load(path + genre);
+      });
+
+    }
+
+    $(document).ready(function() {
+      $("#genres_header").click(function () {
+        $(".genre").toggle("slow");
+      });
+    });
+
+  </script>
+</head>
+<body>
+
+<div id="wrapper">
+  <div id="inner">
+    <div id="header">
+      <h1><img src="{{ asset("bundles/filmweb/images/logo.gif")}}" width="519" height="63" alt="Online Movie Store" /></h1>
+      <div id="nav"> 
+          <a href="{{ path('index') }}">Strona główna</a> |
+          {% if app.user %}
+            <a href="{{ path('fos_user_profile_edit') }}">{{ app.user.username }}</a> |
+            <a href="{{ path('fos_user_security_logout') }}">Wyloguj się</a>
+          {% else %}
+            <a href="{{ path('fos_user_security_login') }}">Zaloguj się</a> |
+            <a href="{{ path('fos_user_registration_register') }}">Rejestracja</a>
+          {% endif %}
+      </div>
+      <a href="{{ path('movie', {'slug_id' : '1', 'slug_name' : 'Harry-Potter-i-więzień-Azkabanu' }) }}"><img src="{{ asset('bundles/filmweb/images/header_1.jpg')}}" width="744" height="145" alt="Harry Potter cd" /></a>
+      <a href="{{ path('movie', {'slug_id' : '1', 'slug_name' : 'Harry-Potter-i-więzień-Azkabanu' }) }}">
+        <img src="{{ asset('bundles/filmweb/images/header_2.jpg')}}" width="745" height="48" alt="" /></a> </div>
+    <!-- end header -->
+    {% block gatunki %}
+    <dl id="browse">
+      <dt id="genres_header">Dostępne kategorie</dt>
+          <dd class="genre"><a href="{{ path('index') }}">Wszystkie</a></dd>
+      {% for gatunek in gatunki %}
+          <dd class="genre" onclick="loadAjax('{{ gatunek.getNazwaGatunku }}')"><a href="#">{{ gatunek.getNazwaGatunku }}</a></dd>
+      {% endfor %}
+      <dt>
+      </dt>
+
+      {% if app.user %}
+        <dd class="userOrders">
+          <table class="tftable">
+            <tr>
+              <td>
+                <a href="{{ path('myOrders') }}">
+                <img alt="Moje zamówienia" src="{{ asset('bundles/filmweb/images/my_orders.png') }}" height="60px" width="60px"/>
+                  </a>
+              </td>
+              <td>
+                <a href="{{ path('myOrders') }}" style="text-decoration: none"><p>Moje filmy</p></a>
+              </td>
+            </tr>
+           </table>
+        </dd>
+      {% endif %}
+
+    </dl>
+     {% endblock %}
+    {% block body %}
+    <div id="body">
+      <div class="inner">
+        {% block filmPreview %}
+        {% endblock %}
+      </div>
+      <!-- end .inner -->
+    </div>
+    {% endblock %}
+    <!-- end body -->
+    <div class="clear"></div>
+    <div id="footer">© filmweb.pl</div>
+      <!-- end footnav -->
+    </div>
+    <!-- end footer -->
+  </div>
+  <!-- end inner -->
+</div>
+
+</body>
+<!-- end wrapper -->
+</html>

@@ -1,0 +1,23 @@
+{% extends 'FilmwebWebsiteBundle::base.html.twig' %}
+
+{% block title %}Zamówienie{% endblock %}
+{% block filmPreview %}
+    <style>
+
+    </style>
+    <h1 align="center">Zamówienie</h1>
+    <table class="tftable" border="0">
+        <tr><td><b>Imię:</b></td><td>{{ user.getName }}</td></tr>
+        <tr><td><b>Nazwisko:</b></td><td>{{ user.getSurname }}</td></tr>
+        <tr><td><b>Nazwa filmu:</b></td><td>{{ film.getNazwa }}</td></tr>
+        <tr><td><b>Email:</b></td><td>{{ user.getEmail }}</td></tr>
+        <tr><td><b>Cena:</b></td><td>{{ film.getCena }} zł</td></tr>
+        <tr><td><b>Data wypożyczenia:</b></td><td>{{ dataWypozyczenia }}</td></tr>
+        <tr><td><b>Data zwrotu:</b></td><td>{{ dataZwrotu }}</td></tr>
+    </table>
+    <br />
+    <form action="{{ path('order') }}" method="POST" align="center">
+        <input type="hidden" name="movieId" value="{{ film.getId }}"/>
+        <input  type="submit" value="Dalej"/>
+    </form>
+{% endblock %}

@@ -1,0 +1,105 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Filmy
+ *
+ * @ORM\Table(name="Filmy")
+ * @ORM\Entity
+ */
+class Filmy
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nazwa", type="string", length=100, nullable=true)
+     */
+    private $nazwa;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rok_premiery", type="decimal", precision=4, scale=0, nullable=true)
+     */
+    private $rokPremiery;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dlugosc", type="string", length=45, nullable=true)
+     */
+    private $dlugosc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="opis", type="text", nullable=true)
+     */
+    private $opis;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cena", type="decimal", precision=15, scale=2, nullable=true)
+     */
+    private $cena;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_url", type="text", length=65535, nullable=true)
+     */
+    private $imgUrl;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Filmweb\WebsiteBundle\Entity\Gatunki", inversedBy="idFilm")
+     * @ORM\JoinTable(name="FilmyGatunki",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="id_film", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="nazwa_gatunku", referencedColumnName="nazwa_gatunku")
+     *   }
+     * )
+     */
+    private $nazwaGatunku;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Filmweb\WebsiteBundle\Entity\Aktorzy", inversedBy="idFilm")
+     * @ORM\JoinTable(name="AktorzyFilmy",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="id_film", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="nazwa_aktora", referencedColumnName="nazwa_aktora")
+     *   }
+     * )
+     */
+    private $nazwaAktora;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->nazwaGatunku = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->nazwaAktora = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}

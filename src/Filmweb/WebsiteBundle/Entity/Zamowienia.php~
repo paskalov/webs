@@ -1,0 +1,69 @@
+<?php
+
+namespace Filmweb\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Zamowienia
+ *
+ * @ORM\Table(name="Zamowienia", indexes={@ORM\Index(name="fk_Zamowienia_StatusZamowienia1_idx", columns={"id_status"}), @ORM\Index(name="fk_Zamowienia_Filmy1_idx", columns={"id_film"}), @ORM\Index(name="fk_Zamowienia_Uzytkownicy1_idx", columns={"id_uzytkownik"})})
+ * @ORM\Entity
+ */
+class Zamowienia
+{
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_zamowienia", type="datetime", nullable=true)
+     */
+    private $dataZamowienia;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_zwrotu", type="datetime", nullable=true)
+     */
+    private $dataZwrotu;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Filmweb\WebsiteBundle\Entity\Fosuser
+     *
+     * @ORM\ManyToOne(targetEntity="Filmweb\WebsiteBundle\Entity\Fosuser")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_uzytkownik", referencedColumnName="id")
+     * })
+     */
+    private $idUzytkownik;
+
+    /**
+     * @var \Filmweb\WebsiteBundle\Entity\Filmy
+     *
+     * @ORM\ManyToOne(targetEntity="Filmweb\WebsiteBundle\Entity\Filmy")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_film", referencedColumnName="id")
+     * })
+     */
+    private $idFilm;
+
+    /**
+     * @var \Filmweb\WebsiteBundle\Entity\Statuszamowienia
+     *
+     * @ORM\ManyToOne(targetEntity="Filmweb\WebsiteBundle\Entity\Statuszamowienia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_status", referencedColumnName="id")
+     * })
+     */
+    private $idStatus;
+
+
+}

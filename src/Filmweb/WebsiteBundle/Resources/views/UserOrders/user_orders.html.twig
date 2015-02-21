@@ -1,0 +1,67 @@
+{% extends 'FilmwebWebsiteBundle::base.html.twig' %}
+
+{% block title %}Moje filmy{% endblock %}
+{% block filmPreview %}
+    <br />
+    <table id="order-table">
+        <tr class="order-table-header">
+            <th>Obrazek</th>
+            <th>Nazwa filmu</th>
+            <th>Data zamówienia</th>
+            <th>Data zwrotu</th>
+            <th>Status transakcji</th>
+        </tr>
+        {% for order in orders %}
+            <tr class="order-table-row">
+                <td class="order-table-data">
+                    <a href="{{ path('movie', {'slug_id' : order.getIdFilm.getId, 'slug_name' : order.getIdFilm.getNazwa | replace(' ', '-')})}}">
+                        <img src="{{ asset(order.getIdFilm.getImgUrl) }}" height="82.5" width="60"/>
+                    </a>
+                </td>
+                <td class="order-table-data">
+                    <a href="{{ path('movie', {'slug_id' : order.getIdFilm.getId, 'slug_name' : order.getIdFilm.getNazwa | replace(' ', '-')})}}">
+                        {{ order.getIdFilm.getNazwa }}
+                    </a>
+                </td>
+                <td class="order-table-data">
+                    {{ order.getDataZamowienia.format('H:i:s d-m-Y') }}
+                </td>
+                <td class="order-table-data">
+                    {{ order.getDataZwrotu.format('H:i:s d-m-Y') }}
+                </td>
+                <td class="order-table-data">
+                    {{ order.getIdStatus.getStatus }}
+                </td>
+                <td class="order-table-data">
+                    <a href="{{ asset(order.getIdFilm.getVideoUrl) }}" class="html5lightbox" data-width="1024" data-height="768" title="{{ order.getIdFilm.getNazwa }}">
+                    <img src="{{ asset('bundles/filmweb/images/video-play.png') }}" height="45px" width="45px" alt="Oglądaj"/>
+                    </a>
+                </td>
+            </tr>
+         {% endfor %}
+          {% for order in expiredOrders %}
+            <tr class="order-table-row">
+                <td class="order-table-data" bgcolor="#a9a9a9">
+                    <a href="{{ path('movie', {'slug_id' : order.getIdFilm.getId, 'slug_name' : order.getIdFilm.getNazwa | replace(' ', '-')})}}">
+                        <img src="{{ asset(order.getIdFilm.getImgUrl) }}" height="82.5" width="60"/>
+                    </a>
+                </td>
+                <td class="order-table-data" bgcolor="#a9a9a9">
+                    <a href="{{ path('movie', {'slug_id' : order.getIdFilm.getId, 'slug_name' : order.getIdFilm.getNazwa | replace(' ', '-')})}}">
+                        {{ order.getIdFilm.getNazwa }}
+                    </a>
+                </td>
+                <td class="order-table-data" bgcolor="#a9a9a9">
+                    {{ order.getDataZamowienia.format('H:i:s d-m-Y') }}
+                </td>
+                <td class="order-table-data" bgcolor="#a9a9a9" style="color: red;">
+                    {{ order.getDataZwrotu.format('H:i:s d-m-Y') }}
+                </td>
+                <td class="order-table-data" bgcolor="#a9a9a9">
+                    {{ order.getIdStatus.getStatus }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script src="{{ asset('bundles/filmweb/html5lightbox/html5lightbox.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'FilmwebWebsiteBundle::base.html.twig' %}
+
+{%  block gatunki %}{% endblock %}
+{% block title %}Rejestracja{% endblock %}
+{% block body %}
+    <style>
+        .fos_user_registration_register div {
+            display: block;
+            margin: 0px;
+            margin-left: 14%;
+        }
+        .fos_user_registration_register div label {
+            float: left;
+            width: 15%;
+            text-align: right;
+            padding-right: 10px;
+            font-weight: bold;
+        }
+        .fos_user_registration_register div input {
+            margin-bottom: 16px;
+            margin-right: 6px;
+            outline: 0 none;
+            padding: 3px 3px 3px 5px;
+            font-size: 12px;
+            line-height:15px;
+        }
+        .fos_user_registration_register div>input:focus {
+            box-shadow: 0 0 5px blue;
+        }
+        .fos_user_registration_register div>input[type="submit"] {
+            margin-left: 230px;
+            width: 12%;
+        }
+    </style>
+    {{ block('fos_user_content') }}
+{% endblock %}
